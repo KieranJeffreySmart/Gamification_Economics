@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Class1.cs" />
+    <Compile Remove="Universe.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Framework\Exceptions\" />
+  </ItemGroup>
+
+</Project>

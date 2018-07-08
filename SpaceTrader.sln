@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceTrader", "SpaceTrader\SpaceTrader.csproj", "{452C4413-6877-4CE5-8A16-A2C40570036C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceTrader.Behaviour.Tests", "SpaceTrader.Behaviour.Tests\SpaceTrader.Behaviour.Tests.csproj", "{370AE5E6-7810-4507-8DD1-D5AFB285DD34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceTrader.Infrastructure", "SpaceTrader.Infrastructure\SpaceTrader.Infrastructure.csproj", "{B455386D-8712-4AB2-B375-D7730C72EC8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{452C4413-6877-4CE5-8A16-A2C40570036C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{452C4413-6877-4CE5-8A16-A2C40570036C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{452C4413-6877-4CE5-8A16-A2C40570036C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{452C4413-6877-4CE5-8A16-A2C40570036C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{370AE5E6-7810-4507-8DD1-D5AFB285DD34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{370AE5E6-7810-4507-8DD1-D5AFB285DD34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{370AE5E6-7810-4507-8DD1-D5AFB285DD34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{370AE5E6-7810-4507-8DD1-D5AFB285DD34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B455386D-8712-4AB2-B375-D7730C72EC8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B455386D-8712-4AB2-B375-D7730C72EC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B455386D-8712-4AB2-B375-D7730C72EC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B455386D-8712-4AB2-B375-D7730C72EC8D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B22ED68-5631-4A97-9B6D-D0B33EB5D5B2}
+	EndGlobalSection
+EndGlobal
