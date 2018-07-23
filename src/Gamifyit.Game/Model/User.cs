@@ -1,5 +1,7 @@
 ﻿namespace Gamifyit.Game.Model
 {
+    using System.Threading.Tasks;
+
     using Gamifyit.Framework.DomainObjects;
     using Gamifyit.Framework.Events;
     using Gamifyit.Game.Events;
@@ -23,7 +25,7 @@
 
         public Membership Membership { get; private set; }
 
-        public void Register(string email, string username)
+        public async Task Register(string email, string username)
         {
             if (this.Membership != null)
             {
@@ -31,8 +33,8 @@
             }
 
             this.Membership = new Membership(email, username);
-            this.membershipRepository.Add(this.Membership);
-            this.eventMediator.Publish(new UserRegisteredEvent(this));
+            await this.membershipRepository.Add(this.Membership);
+            await this.eventMediator.Publish(new UserRegisteredEvent(this));
         }
     }
 }

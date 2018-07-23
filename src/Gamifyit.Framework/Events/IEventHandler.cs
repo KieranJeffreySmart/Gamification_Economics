@@ -13,5 +13,8 @@
         Guid Id { get; }
         string Name { get; }
         Type EventType { get; }
+
+        Task Handle<TEvent>(TEvent publishedEvent)
+            where TEvent : Event;
     }
 }

@@ -1,37 +1,29 @@
 ﻿namespace Gamifyit.Game.Repositories
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
-    using Gamifyit.Framework.Events;
-    using Gamifyit.Game.Events;
     using Gamifyit.Game.Model;
 
     public class InMemoryMembershipRepository: IMembershipRepository
     {
-        private readonly List<Membership> memberships = new List<Membership>();
+        private readonly Dictionary<string, Membership> memberships = new Dictionary<string, Membership>();
 
         public async Task Add(Membership membership)
         {
-            await Task.Run(() => this.memberships.Add(membership));
-        }
-    }
-
-    public class EventPublshingMembershipRepositoryDecorator : IMembershipRepository
-    {
-        private readonly IMembershipRepository innerRepository;
-        private readonly IEventMediator eventMediator;
-
-        public EventPublshingMembershipRepositoryDecorator(IMembershipRepository innerRepository, IEventMediator eventMediator)
-        {
-            this.innerRepository = innerRepository;
-            this.eventMediator = eventMediator;
+            await Task.Run(() => this.memberships.Add(membership.Member.EmailAddress.FullAddress, membership));
         }
 
-        public async Task Add(Membership membership)
+        public async Task<Membership> GetByEmailAddress(string email)
         {
-            await this.innerRepository.Add(membership);
-            await this.eventMediator.Publish(new MembershipCreatedEvent(membership));
+            return await Task.Run(() => this.memberships.TryGetValue(email, out var membership) ? membership : null);
+        }
+
+        public async Task<Membership> GetByUsername(string username)
+        {
+            return await Task.Run(() => this.memberships.Values.FirstOrDefault(m => string.Compare(m.Member.Username, username, StringComparison.InvariantCultureIgnoreCase) == 0));
         }
     }
 }

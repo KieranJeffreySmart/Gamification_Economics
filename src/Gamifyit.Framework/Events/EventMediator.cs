@@ -14,18 +14,11 @@
             {
                 foreach (var registeredHandler in this.registeredHandlers)
                 {
-                    if (registeredHandler is IEventHandler<TEvent> handler)
+                    if (registeredHandler.EventType.IsAssignableFrom(typeof(TEvent)))
                     {
-                        handler.Handle(publishedEvent);
+                        registeredHandler.Handle(publishedEvent);
                     }
                 }
-
-                //var handlers = this.registeredHandlers.Where(h => typeof(TEvent).IsAssignableFrom(h.EventType));
-
-                //foreach (var handler in handlers)
-                //{
-                //    handler.Handle(publishedEvent);
-                //}
             });
         }
 

@@ -5,11 +5,11 @@
 
     public class MembershipCreatedEvent : Event
     {
-        private readonly Membership membership;
-
         public MembershipCreatedEvent(Membership membership)
         {
             this.membership = membership;
         }
+
+        private readonly Membership membership;
     }
 }

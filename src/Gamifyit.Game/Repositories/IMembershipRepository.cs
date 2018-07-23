@@ -7,5 +7,9 @@
     public interface IMembershipRepository
     {
         Task Add(Membership membership);
+
+        Task<Membership> GetByEmailAddress(string email);
+
+        Task<Membership> GetByUsername(string username);
     }
 }
