@@ -3,6 +3,7 @@
     using System;
 
     using Gamifyit.Framework.Events;
+    using Gamifyit.Game.Events.Publishers;
     using Gamifyit.Game.Model;
     using Gamifyit.Game.Repositories;
 
@@ -12,34 +13,57 @@
     {
         private ServiceProvider provider;
 
-        private static readonly Dependancy instance = new Dependancy();
+        private IServiceCollection collection;
+        
+        public T GetService<T>()
+        {
+            return this.GetProvider().GetService<T>();
+        }
 
-        public static ServiceProvider Provider => instance.GetProvider();
-
-        private IServiceCollection Collection { get; } = new ServiceCollection();
+        private IServiceCollection GetCollection()
+        {
+            return this.collection ?? (this.collection = this.Setup());
+        }
 
         private ServiceProvider GetProvider()
         {
-            return this.provider ?? this.Setup();
+            return this.provider ?? (this.provider = this.GetCollection().BuildServiceProvider());
         }
 
-        private ServiceProvider Setup()
+        private IServiceCollection Setup()
         {
-            this.Collection.AddSingleton<IEventMediator, EventMediator>();
-            this.Collection.AddSingleton<InMemoryMembershipRepository>();
-            this.Collection.AddSingleton<IMembershipRepository>(
-                    x => new EventPublshingMembershipRepositoryDecorator(
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddSingleton<IEventMediator, EventMediator>();
+
+            serviceCollection.AddSingleton<InMemoryMembershipRepository>();
+            serviceCollection.AddSingleton<IMembershipRepository>(
+                    x => new MembershipRepositoryDecorator(
                         x.GetService<InMemoryMembershipRepository>(),
                         x.GetService<IEventMediator>()));
 
-            this.provider = this.Collection.BuildServiceProvider();
+            serviceCollection.AddSingleton<InMemoryGameTypeRepository>();
+            serviceCollection.AddSingleton <IGameTypeRepository>(
+                x => new GameTypeRepositoryDecorator(
+                    x.GetService<InMemoryGameTypeRepository>(),
+                    x.GetService<IEventMediator>()));
 
-            return this.provider;
-        }
+            serviceCollection.AddSingleton<InMemoryGameRepository>();
+            serviceCollection.AddSingleton<IGameRepository>(
+                x => new GameRepositoryDecorator(
+                    x.GetService<InMemoryGameRepository>(),
+                    x.GetService<IEventMediator>()));
 
-        public T Resolve<T>()
-        {
-            return this.provider.GetService<T>();
+            serviceCollection.AddSingleton<InMemoryCharacterRepository>();
+            serviceCollection.AddSingleton<ICharacterRepository>(
+                x => new CharacterRepositoryDecorator(
+                    x.GetService<InMemoryCharacterRepository>(),
+                    x.GetService<IEventMediator>()));
+
+            serviceCollection.AddSingleton<ILookupRepository, InMemoryLookupRepository>();
+
+            serviceCollection.BuildServiceProvider();
+
+            return serviceCollection;
         }
     }
 }

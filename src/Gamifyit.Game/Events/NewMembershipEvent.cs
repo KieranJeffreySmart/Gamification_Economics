@@ -3,9 +3,9 @@
     using Gamifyit.Framework.Events;
     using Gamifyit.Game.Model;
 
-    public class MembershipCreatedEvent : Event
+    public class NewMembershipEvent : Event
     {
-        public MembershipCreatedEvent(Membership membership)
+        public NewMembershipEvent(Membership membership)
         {
             this.membership = membership;
         }

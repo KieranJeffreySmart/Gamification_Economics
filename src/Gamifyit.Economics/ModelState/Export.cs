@@ -1,6 +1,8 @@
 ﻿namespace Gamifyit.Economics.ModelState
 {
-    public class Export
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Export : EntityState
     {
     }
 }

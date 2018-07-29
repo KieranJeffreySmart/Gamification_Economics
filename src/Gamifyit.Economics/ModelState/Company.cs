@@ -1,6 +1,8 @@
 ﻿namespace Gamifyit.Economics.ModelState
 {
-    public class Company
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Company : EntityState
     {
         Business Business { get; set; }
     }

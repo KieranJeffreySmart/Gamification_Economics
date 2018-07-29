@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public class ChemicalCompound
+    using Gamifyit.Framework.DomainObjects;
+
+    public class ChemicalCompound : EntityState
     {
         public IDictionary<Element, int> Composition { get; set; } = new Dictionary<Element, int>();
     }

@@ -1,6 +1,8 @@
 ﻿namespace Gamifyit.Economics.ModelState
 {
-    public class Deal
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Deal : EntityState
     {
     }
 }

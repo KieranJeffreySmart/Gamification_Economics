@@ -5,11 +5,11 @@
 
     public class UserRegisteredEvent : Event
     {
-        public UserRegisteredEvent(User user)
+        public UserRegisteredEvent(IUser user)
         {
             this.User = user;
         }
 
-        public User User { get; }
+        public IUser User { get; }
     }
 }

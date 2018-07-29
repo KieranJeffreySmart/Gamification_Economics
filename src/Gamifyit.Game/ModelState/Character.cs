@@ -6,12 +6,10 @@
 
     public class Character : EntityState
     {
-        public LookupItem Sex { get; set; }
-        public LookupItem Type { get; set; }
         public string Name { get; set; }
+        public int Type { get; set; }
+        public Dictionary<int, int> Attributes { get; set; } = new Dictionary<int, int>();
 
-        public IList<StateIdentity> Companies { get; set; } = new List<StateIdentity>();
-        public IList<StateIdentity> Businesses { get; set; } = new List<StateIdentity>();
-
+        public Dictionary<int, StateIdentity> Assets { get; set; } = new Dictionary<int, StateIdentity>();
     }
 }

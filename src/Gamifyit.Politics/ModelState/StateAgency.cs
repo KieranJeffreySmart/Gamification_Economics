@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public class StateAgency
+    using Gamifyit.Framework.DomainObjects;
+
+    public class StateAgency : EntityState
     {
         public IList<StateAgent> Agents { get; set; } = new List<StateAgent>();
     }

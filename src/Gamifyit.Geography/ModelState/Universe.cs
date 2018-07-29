@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public class Universe
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Universe : EntityState
     {
         public IList<Galaxy> Galaxies { get; set; } = new List<Galaxy>();
     }

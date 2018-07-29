@@ -1,6 +1,8 @@
 ﻿namespace Gamifyit.Economics.ModelState
 {
-    public class Import
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Import : EntityState
     {
     }
 }

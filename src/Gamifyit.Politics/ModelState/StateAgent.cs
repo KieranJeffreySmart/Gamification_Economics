@@ -1,6 +1,8 @@
 ﻿namespace Gamifyit.Politics.ModelState
 {
-    public class StateAgent
+    using Gamifyit.Framework.DomainObjects;
+
+    public class StateAgent : EntityState
     {
     }
 }

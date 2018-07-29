@@ -6,7 +6,7 @@
 
     using Gamifyit.Framework.Events;
 
-    public class ListEventHandler : IEventHandler<Event>
+    public class ListEventHandler : IEventHandler
     {
         public List<Event> Events { get; } = new List<Event>();
 
@@ -17,7 +17,6 @@
         public Type EventType => typeof(Event);
 
         public async Task Handle<TEvent>(TEvent publishedEvent)
-            where TEvent : Event
         {
             await this.Handle(publishedEvent as Event);
         }

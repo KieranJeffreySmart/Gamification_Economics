@@ -1,6 +1,8 @@
 ﻿namespace Gamifyit.Chemistry.ModelState
 {
-    public class Element
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Element : EntityState
     {
         public string Name { get; set; }
         public string Description { get; set; }

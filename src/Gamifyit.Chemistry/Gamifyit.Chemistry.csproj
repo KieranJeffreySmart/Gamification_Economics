@@ -8,4 +8,8 @@
     <Folder Include="Repositories\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Gamifyit.Framework\Gamifyit.Framework.csproj" />
+  </ItemGroup>
+
 </Project>

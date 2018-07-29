@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public class UnionOfStates
+    using Gamifyit.Framework.DomainObjects;
+
+    public class UnionOfStates : EntityState
     {
         public IList<State> States { get; set; } = new List<State>();
     }

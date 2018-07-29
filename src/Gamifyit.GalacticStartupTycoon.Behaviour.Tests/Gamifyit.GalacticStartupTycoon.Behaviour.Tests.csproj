@@ -15,7 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gamifyit.Framework\Gamifyit.Framework.csproj" />
+    <ProjectReference Include="..\Gamifyit.GalacticStartupTycoon\Gamifyit.GalacticStartupTycoon.csproj" />
     <ProjectReference Include="..\Gamifyit.Game\Gamifyit.Game.csproj" />
+    <ProjectReference Include="..\Gamifyit.Geography\Gamifyit.Geography.csproj" />
   </ItemGroup>
 
 </Project>

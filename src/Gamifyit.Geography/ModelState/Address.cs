@@ -1,6 +1,8 @@
 ﻿namespace Gamifyit.Geography.ModelState
 {
-    public class Address
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Address : EntityState
     {
     }
 }

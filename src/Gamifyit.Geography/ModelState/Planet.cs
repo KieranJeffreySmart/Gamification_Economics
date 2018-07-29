@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public class Planet
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Planet : EntityState
     {
         public IList<City> Cities { get; set; } = new List<City>();
     }

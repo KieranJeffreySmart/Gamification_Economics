@@ -1,6 +1,8 @@
 ﻿namespace Gamifyit.Politics.ModelState
 {
-    public class Regulation
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Regulation : EntityState
     {
     }
 }

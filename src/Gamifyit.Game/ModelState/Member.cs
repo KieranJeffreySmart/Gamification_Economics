@@ -2,10 +2,12 @@
 {
     using System.Collections.Generic;
 
-    public class Member
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Member : EntityState
     {
         public string Email { get; internal set; }
         public string Username { get; internal set; }
-        public IList<Character> Characters { get; set; } = new List<Character>();
+        public IList<StateIdentity> Games { get; set; } = new List<StateIdentity>();
     }
 }

@@ -9,20 +9,20 @@
         public Member(ModelState.Member state) : base(state)
         {
             this.EmailAddress = new EmailAddress(this.State.Email);
-            this.characters = new EntityCollection<Character, ModelState.Character>(this.State.Characters, (s) => new Character(s));
+            this.games = new ValueObjectCollection<EntityIdentity, StateIdentity>(this.State.Games, EntityIdentity.StateFactory, EntityIdentity.ValueObjectFactory);
         }
 
-        EntityCollection<Character, ModelState.Character> characters;
+        ValueObjectCollection<EntityIdentity, StateIdentity> games;
  
-        public IReadOnlyCollection<Character> Characters => this.characters;
+        public IReadOnlyCollection<EntityIdentity> Games => this.games;
 
         public EmailAddress EmailAddress { get; }
 
         public string Username => this.State.Username;
 
-        public void AddCharacter(Character character)
+        public void AddGame(EntityIdentity gameIdentity)
         {
-            this.characters.Add(character);
+            this.games.Add(gameIdentity);
         }
     }
 }

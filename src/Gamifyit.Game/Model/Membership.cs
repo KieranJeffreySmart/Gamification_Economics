@@ -1,6 +1,10 @@
 ﻿namespace Gamifyit.Game.Model
 {
+    using System.Threading.Tasks;
+
+    using Gamifyit.Framework.CommandQuerySeperation;
     using Gamifyit.Framework.DomainObjects;
+    using Gamifyit.Game.Repositories;
 
     public class Membership : Entity<ModelState.Membership>
     {

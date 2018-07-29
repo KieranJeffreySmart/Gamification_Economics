@@ -6,7 +6,8 @@
     {
         public static Func<EntityIdentity, StateIdentity> StateFactory = (vo) => new StateIdentity { Index = vo.Index, Reference = vo.Reference };
         public static Func<StateIdentity, EntityIdentity> ValueObjectFactory = (s) => new EntityIdentity(s.Index, s.Reference);
-
+        private StateIdentity identity;
+        
         public EntityIdentity(long index, string reference)
         {
             this.Index = index;

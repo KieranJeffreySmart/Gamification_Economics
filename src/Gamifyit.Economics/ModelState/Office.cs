@@ -1,6 +1,7 @@
 ﻿namespace Gamifyit.Economics.ModelState
 {
-    public class Office
+    using Gamifyit.Framework.DomainObjects;
+    public class Office : EntityState
     {
     }
 }

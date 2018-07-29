@@ -2,7 +2,10 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
 
     public class ValueObjectCollection<TValueObject, TState> : IReadOnlyCollection<TValueObject>, ICollection<TValueObject>
     {
@@ -17,6 +20,7 @@
             this.items.AddRange(this.items);
             this.stateFactory = stateFactory;
 
+            this.states = states;
             foreach (var state in this.states)
             {
                 this.StateMap.Add(valueObjectFactory(state), state);
@@ -24,7 +28,6 @@
 
             this.items.AddRange(this.StateMap.Keys);
 
-            this.states = states;
         }
 
         public bool IsReadOnly => true;

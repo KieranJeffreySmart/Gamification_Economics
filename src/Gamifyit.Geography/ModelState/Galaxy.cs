@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public class Galaxy
+    using Gamifyit.Framework.DomainObjects;
+
+    public class Galaxy : EntityState
     {
         public IList<SolarSystem> SolarSystems { get; set; } = new List<SolarSystem>();
 
