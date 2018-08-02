@@ -6,5 +6,15 @@
 
     public class City: EntityState
     {
+        public override object Clone()
+        {
+            return this.CloneAsSelf();
+        }
+
+        public City CloneAsSelf()
+        {
+            var clone = (City)this.MemberwiseClone();
+            return clone;
+        }
     }
 }

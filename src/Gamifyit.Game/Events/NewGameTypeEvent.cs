@@ -1,15 +1,16 @@
 ﻿namespace Gamifyit.Game.Events
 {
+    using Gamifyit.Framework.DomainObjects;
     using Gamifyit.Framework.Events;
     using Gamifyit.Game.Model;
 
     public class NewGameTypeEvent : Event
     {
-        public NewGameTypeEvent(GameType gameType)
+        public NewGameTypeEvent(EntityIdentity gameType)
         {
             this.GameType = gameType;
         }
 
-        public GameType GameType { get; }
+        public EntityIdentity GameType { get; }
     }
 }

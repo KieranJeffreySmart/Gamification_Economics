@@ -1,33 +1,18 @@
-﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests
+﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests.Scenarios
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     using FluentAssertions;
-    using FluentAssertions.Execution;
 
-    using Gamifyit.Framework.DomainObjects;
-    using Gamifyit.Framework.Events;
-    using Gamifyit.GalacticStartupTycoon.Model;
-    using Gamifyit.GalacticStartupTycoon.Services;
-    using Gamifyit.Game.Events;
     using Gamifyit.Game.Model;
     using Gamifyit.Game.Repositories;
-    using Gamifyit.Geography.Model;
-    using Gamifyit.Geography.Repositories;
-
-    using Microsoft.Extensions.DependencyInjection;
 
     using Xbehave;
 
-    using City = Gamifyit.Geography.ModelState.City;
-    using Galaxy = Gamifyit.Geography.ModelState.Galaxy;
-    using GameModelState = Game.ModelState;
-    using Planet = Gamifyit.Geography.ModelState.Planet;
-    using SolarSystem = Gamifyit.Geography.ModelState.SolarSystem;
+    using Game = Gamifyit.Game.Model.Game;
+    using GameModelState = Gamifyit.Game.ModelState;
+    using User = Gamifyit.Game.Model.User;
 
     public class QuickStartFeature: WebsiteTest
     {
@@ -55,10 +40,10 @@
             var gameName = "My First Game";
 
             "Given I have a membership"
-                .x(() => this.CreateMembership(email, userName).Wait());
+                .x(async () => await this.CreateMembership(email, userName));
 
             "And I have started a game"
-                .x(() => game = this.StartGame(email, gameName).Result);
+                .x(async () => this.game = await this.StartGame(email, gameName));
         }
 
         [Scenario]

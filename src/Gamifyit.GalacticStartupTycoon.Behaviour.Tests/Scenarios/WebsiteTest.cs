@@ -1,4 +1,4 @@
-﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests
+﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests.Scenarios
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -6,8 +6,6 @@
     using FluentAssertions;
 
     using Gamifyit.Framework.Events;
-
-    using Xbehave;
 
     public class WebsiteTest
     {
@@ -27,9 +25,14 @@
             await this.SetupNotificationListner();
         }
 
-        protected void IAmNotifiedOfEvent<TEvent>()
+        protected async Task SetupApplication()
         {
-            this.listEventHandler.Events.OfType<TEvent>().Count().Should().Be(1);
+            await this.SetupNotificationListner();
+        }
+
+        protected void IAmNotifiedOfEvent<TEvent>(int count = 1)
+        {
+            this.listEventHandler.Events.OfType<TEvent>().Count().Should().Be(count);
         }
 
         private async Task SetupNotificationListner()

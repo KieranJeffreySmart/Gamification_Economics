@@ -1,15 +1,16 @@
 ﻿namespace Gamifyit.Game.Events
 {
+    using Gamifyit.Framework.DomainObjects;
     using Gamifyit.Framework.Events;
     using Gamifyit.Game.Model;
 
     public class NewMembershipEvent : Event
     {
-        public NewMembershipEvent(Membership membership)
+        public NewMembershipEvent(EntityIdentity membership)
         {
-            this.membership = membership;
+            this.Membership = membership;
         }
 
-        private readonly Membership membership;
+        public readonly EntityIdentity Membership;
     }
 }

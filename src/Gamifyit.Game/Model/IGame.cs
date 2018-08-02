@@ -1,6 +1,5 @@
 ﻿namespace Gamifyit.Game.Model
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Gamifyit.Framework.DomainObjects;
@@ -10,5 +9,7 @@
         EntityIdentity Identity { get; }
 
         Task StartNewGame();
+
+        Task AddCharacter(EntityIdentity characterIdentity);
     }
 }

@@ -7,23 +7,21 @@
 
     using Gamifyit.Game.Model;
 
-    public class InMemoryMembershipRepository: IMembershipRepository
+    public class InMemoryMembershipRepository : GenericInMemoryEntityRepository<Membership, ModelState.Membership>, IMembershipRepository
     {
-        private readonly Dictionary<string, Membership> memberships = new Dictionary<string, Membership>();
-
-        public async Task Add(Membership membership)
-        {
-            await Task.Run(() => this.memberships.Add(membership.Member.EmailAddress.FullAddress, membership));
-        }
-
         public async Task<Membership> GetByEmailAddress(string email)
         {
-            return await Task.Run(() => this.memberships.TryGetValue(email, out var membership) ? membership : null);
+            return await Task.Run(() => this.Entities.Values.FirstOrDefault(m => string.Compare(m.Member.EmailAddress.FullAddress, email, StringComparison.InvariantCultureIgnoreCase) == 0));
         }
 
         public async Task<Membership> GetByUsername(string username)
         {
-            return await Task.Run(() => this.memberships.Values.FirstOrDefault(m => string.Compare(m.Member.Username, username, StringComparison.InvariantCultureIgnoreCase) == 0));
+            return await Task.Run(() => this.Entities.Values.FirstOrDefault(m => string.Compare(m.Member.Username, username, StringComparison.InvariantCultureIgnoreCase) == 0));
+        }
+
+        protected override Membership EntityFactory(ModelState.Membership state)
+        {
+            return new Membership(state);
         }
     }
 }

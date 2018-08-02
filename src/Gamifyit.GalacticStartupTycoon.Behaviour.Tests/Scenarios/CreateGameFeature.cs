@@ -1,20 +1,15 @@
-﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests
+﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests.Scenarios
 {
     using System.Linq;
     using System.Threading.Tasks;
 
     using FluentAssertions;
 
-    using Gamifyit.Framework.DomainObjects;
-    using Gamifyit.Framework.Events;
     using Gamifyit.Game.Events;
     using Gamifyit.Game.Model;
     using Gamifyit.Game.Repositories;
 
-    using Microsoft.Extensions.DependencyInjection;
-
     using Xbehave;
-    
 
     public class CreateGameFeature : WebsiteTest
     {
@@ -30,8 +25,8 @@
         [Background]
         public void Setup()
         {
-            "And I am on a website"
-                .x(() => this.SetupWebsite().Wait());
+            "And I am in the application"
+                .x(async () => await this.SetupApplication());
         }
         
         [Scenario]
@@ -43,7 +38,7 @@
             "Given I have a game type"
                 .x(() => type = this.testData.GameTypeLookup.Key);
 
-            "When I create a new Game".x(() => this.CreateNewGame(name).Wait());
+            "When I create a new Game".x(async () => await this.CreateNewGame(name));
 
             "Then I am notified of a new game type".x(() => this.IAmNotifiedOfANewGame());
         }

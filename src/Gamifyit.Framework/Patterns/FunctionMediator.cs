@@ -1,4 +1,4 @@
-﻿namespace Gamifyit.Framework
+﻿namespace Gamifyit.Framework.Patterns
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

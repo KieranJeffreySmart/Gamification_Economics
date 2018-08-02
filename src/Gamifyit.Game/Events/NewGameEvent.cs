@@ -2,13 +2,14 @@
 
 namespace Gamifyit.Game.Events
 {
+    using Gamifyit.Framework.DomainObjects;
     using Gamifyit.Framework.Events;
 
     public class NewGameEvent : Event
     {
-        public IGame Game { get; }
+        public EntityIdentity Game { get; }
 
-        public NewGameEvent(IGame game)
+        public NewGameEvent(EntityIdentity game)
         {
             this.Game = game;
         }

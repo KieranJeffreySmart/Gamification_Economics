@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using Gamifyit.Framework.Patterns;
+
     public class EventMediator : IEventMediator
     {
         private readonly ActionMediator<ActionHandlerAdaptor> mediator = new ActionMediator<ActionHandlerAdaptor>();

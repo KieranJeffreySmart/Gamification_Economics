@@ -1,15 +1,16 @@
 ﻿namespace Gamifyit.Game.Events
 {
+    using Gamifyit.Framework.DomainObjects;
     using Gamifyit.Framework.Events;
     using Gamifyit.Game.Model;
 
     public class UserRegisteredEvent : Event
     {
-        public UserRegisteredEvent(IUser user)
+        public UserRegisteredEvent(EntityIdentity user)
         {
             this.User = user;
         }
 
-        public IUser User { get; }
+        public EntityIdentity User { get; }
     }
 }

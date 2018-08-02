@@ -11,5 +11,10 @@
             : base(state)
         {
         }
+
+        public ModelState.GameType CloneState()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -1,8 +1,6 @@
 ﻿namespace Gamifyit.Game.Model
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
-
     using Gamifyit.Framework.DomainObjects;
 
     public class Game : Entity<ModelState.Game>, IGame
@@ -18,6 +16,11 @@
         public async Task StartNewGame()
         {
             await Task.FromResult(0);
+        }
+
+        public Task AddCharacter(EntityIdentity characterIdentity)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

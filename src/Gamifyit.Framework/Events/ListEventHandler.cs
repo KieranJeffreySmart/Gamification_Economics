@@ -1,10 +1,8 @@
-﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests
+﻿namespace Gamifyit.Framework.Events
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using Gamifyit.Framework.Events;
 
     public class ListEventHandler : IEventHandler
     {

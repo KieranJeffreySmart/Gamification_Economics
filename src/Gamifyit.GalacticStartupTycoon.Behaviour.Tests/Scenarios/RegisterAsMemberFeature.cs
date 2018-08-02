@@ -1,4 +1,4 @@
-﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests
+﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests.Scenarios
 {
     using System;
     using System.Linq;
@@ -6,14 +6,10 @@
 
     using FluentAssertions;
 
-    using Gamifyit.Framework.Events;
-    using Gamifyit.GalacticStartupTycoon.Services;
     using Gamifyit.Game.Events;
-    using Gamifyit.Game.Events.Publishers;
     using Gamifyit.Game.Model;
+    using Gamifyit.Game.Publishers;
     using Gamifyit.Game.Repositories;
-
-    using Microsoft.Extensions.DependencyInjection;
 
     using Xbehave;
 
@@ -23,7 +19,6 @@
         IMembershipRepository membershipRepository;
         
         private IUser user;
-
 
         public RegisterAsMemberFeature()
         {
@@ -40,7 +35,7 @@
                 .x(() => this.user = this.userFactory());
 
             "And I am on a website"
-                .x(() => this.SetupWebsite().Wait());
+                .x(async () => await this.SetupWebsite());
         }
 
         [Scenario]
@@ -53,7 +48,7 @@
                 .x(() => username = "me");
 
             "When I register as a new member"
-                .x(() => this.user.Register(emailAddress, username).Wait());
+                .x(async () => await this.user.Register(emailAddress, username));
 
             "Then I should receive confirmation of my new membership"
                 .x(() => this.NewMembershipNotificationReceived());

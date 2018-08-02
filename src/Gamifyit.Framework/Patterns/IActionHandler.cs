@@ -1,4 +1,4 @@
-﻿namespace Gamifyit.Framework
+﻿namespace Gamifyit.Framework.Patterns
 {
     using System;
     using System.Threading.Tasks;

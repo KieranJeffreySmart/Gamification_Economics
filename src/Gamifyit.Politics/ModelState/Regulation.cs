@@ -4,5 +4,16 @@
 
     public class Regulation : EntityState
     {
+        public override object Clone()
+        {
+            return this.CloneAsSelf();
+        }
+
+        public Regulation CloneAsSelf()
+        {
+            var clone = (Regulation)this.MemberwiseClone();
+            clone.Identity = this.Identity.CloneAsSelf();
+            return clone;
+        }
     }
 }

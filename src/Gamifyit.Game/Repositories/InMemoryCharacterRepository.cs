@@ -6,18 +6,11 @@
     using Gamifyit.Framework.DomainObjects;
     using Gamifyit.Game.Model;
 
-    public class InMemoryCharacterRepository : ICharacterRepository
+    public class InMemoryCharacterRepository : GenericInMemoryEntityRepository<Character, ModelState.Character>, ICharacterRepository
     {
-        private readonly Dictionary<long, Character> characters = new Dictionary<long, Character>();
-
-        public async Task Add(Character character)
+        protected override Character EntityFactory(ModelState.Character state)
         {
-            await Task.Run(() => this.characters.Add(character.Identity.Index, character));
-        }
-
-        public async Task<Character> Get(EntityIdentity identity)
-        {
-            return await Task.Run(() => this.characters.TryGetValue(identity.Index, out var game) ? game : null);
+            return new Character(state);
         }
     }
 }

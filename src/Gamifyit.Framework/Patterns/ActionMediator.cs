@@ -1,7 +1,6 @@
-﻿namespace Gamifyit.Framework
+﻿namespace Gamifyit.Framework.Patterns
 {
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Threading.Tasks;
 
     public class ActionMediator<THandler> where THandler : IActionHandler

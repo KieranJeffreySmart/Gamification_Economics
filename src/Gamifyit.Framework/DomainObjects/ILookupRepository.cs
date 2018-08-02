@@ -1,9 +1,7 @@
-﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests
+﻿namespace Gamifyit.Framework.DomainObjects
 {
     using System;
     using System.Threading.Tasks;
-
-    using Gamifyit.Framework.DomainObjects;
 
     public interface ILookupRepository
     {

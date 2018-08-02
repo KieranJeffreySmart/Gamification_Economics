@@ -2,9 +2,9 @@
 {
     using System;
 
+    using Gamifyit.Framework.DomainObjects;
     using Gamifyit.Framework.Events;
-    using Gamifyit.Game.Events.Publishers;
-    using Gamifyit.Game.Model;
+    using Gamifyit.Game.Publishers;
     using Gamifyit.Game.Repositories;
 
     using Microsoft.Extensions.DependencyInjection;

@@ -1,4 +1,4 @@
-﻿namespace Gamifyit.Game.Events.Publishers
+﻿namespace Gamifyit.Game.Publishers
 {
     using System.Threading.Tasks;
 
@@ -21,7 +21,7 @@
         public async Task Add(Membership membership)
         {
             await this.innerRepository.Add(membership);
-            await this.eventMediator.Publish(new NewMembershipEvent(membership));
+            await this.eventMediator.Publish(new NewMembershipEvent(membership.Identity));
         }
 
         public Task<Membership> GetByEmailAddress(string email)

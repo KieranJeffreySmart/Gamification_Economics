@@ -3,6 +3,8 @@
     using System;
     using System.Threading.Tasks;
 
+    using Gamifyit.Framework.Patterns;
+
     public class CommandQueryMediator : ICommandMediator, IQueryMediator
     {
         private readonly ActionMediator<ActionHandlerAdaptor> actionMediator = new ActionMediator<ActionHandlerAdaptor>();
