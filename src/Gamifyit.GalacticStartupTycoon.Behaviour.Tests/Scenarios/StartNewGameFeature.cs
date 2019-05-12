@@ -1,9 +1,17 @@
 ﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests.Scenarios
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
+    using FluentAssertions;
+
+    using Gamifyit.Finance.Events;
+    using Gamifyit.Finance.Model;
+    using Gamifyit.Finance.Repositories;
     using Gamifyit.Framework.DomainObjects;
+    using Gamifyit.Framework.Events;
     using Gamifyit.Game.Events;
     using Gamifyit.Game.Model;
 
@@ -11,89 +19,107 @@
 
     public class StartNewGameFeature : GalacticStartupGameTest
     {
-        private EntityIdentity characterId;
+        private IAccountRepository accountRepository;
+
+        private IAssetRepository assetRepository;
 
         [Background]
         public void SetUp()
         {
             "Given I am in the application".x(async () => await this.SetupApplication());
-
+            
             "And I Have a New Game".x(async () => await this.HaveCreatedGame());
         }
 
         [Scenario]
-        public void StartNewGame(IGame game, EntityIdentity characterId)
+        public void StartNewGame(IGame game, EntityIdentity characterId, ICharacter character)
         {
+            var personalAccountName = "Wallet";
+            var currencyType = new LookupItem<long> { Key = 1, Value = "GBP" };
+            var assetType = new LookupItem { Key = 1, Value = "Computer" };
+
             "Given I have opened a game".x(async () => game = await this.OpenGame());
 
-            "And a created character".x(() => characterId = new EntityIdentity(new StateIdentity(1, Guid.NewGuid().ToString())));
+            "And I have a created character".x(() => characterId = new EntityIdentity(new StateIdentity(1, Guid.NewGuid().ToString())));
 
-            "When I add the character to the game"
-                .x(async () => await this.AddChacterToGame(game, characterId));
+            "When I join the game"
+                .x(async () => await this.JoinGameAsPlayer(game, characterId));
 
             "Then I am notified my character has joined a game"
-                .x(() => this.IAmNotifiedOfEvent<CharacterHasJoinedGameEvent>());
+                .x(() => this.AmNotifiedOfEvent<PlayerHasJoinedGameEvent>());
 
-            "And a new Personal Account has opened called Wallet"
-                .x(() => this.IAmNotifiedOfEvent<NewPersonalAccountOpenedEvent>());
+            "And a new Personal Account has opened called {personalAccountName} with a total funds of 0 creits"
+                .x(() => this.AmNotifiedOfEvent<NewPersonalAccountOpenedEvent>((l) => this.AssertNewPersonalAccountOpened(l, personalAccountName, 0, currencyType)));
 
-            "And I am notified of funds into my account"
-                .x(() => this.IAmNotifiedOfFundsIntoMyAccount());
+            "And I am notified of funds into my account of 100 credits"
+                .x(() => this.AmNotifiedOfEvent<FundsAddedToAccount>((l) => this.AssertFundsAddedToAccount(l, personalAccountName, 100, currencyType)));
 
-            "And I am notified of Assets attained"
-                .x(() => this.IAmNotifiedOfAssetsAttained());
+            "And I am notified of Assets received of the type {assetType}"
+                .x(() => this.AmNotifiedOfEvent<AssetsReceived>((l) => this.AssertAssetReceived(l, assetType)));
 
             "And I am notified my current Net Worth has increased to 200C"
-                .x(() => this.IAmNotifiedMyCurrentNetWorthHasIncreasedTo(200, "C"));
+                .x(() => this.AmNotifiedOfEvent<NetWorthIncreased>((l) => this.AssertCharactersNetWorth(l, characterId, 200, currencyType)));
             
+            "And I can view my character"
+                .x(async () => await this.ICanViewMyCharacter(characterId));
+
             "And I can view my characters Assets"
-                .x(async () => await this.ICanViewMyCharactersAssets());
+                .x(async () => await this.ICanViewMyAssets(character, game.GameType));
+
+            "And I can view my characters accounts"
+                .x(async () => await this.ICanViewMyAccount(character));
         }
 
-
-        private async Task AddChacterToGame(IGame game, EntityIdentity characterId)
+        private void AssertFundsAddedToAccount(IEnumerable<FundsAddedToAccount> fundsAddedToAccounts, string personalAccountName, int i, LookupItem<long> currencyType)
         {
-            await game.AddCharacter(characterId);
+            var accountEvent = fundsAddedToAccounts.SingleOrDefault();
         }
 
-        private void IAmNotifiedMyCharacterHasJoinedAGame()
+        private void AssertNewPersonalAccountOpened(IEnumerable<NewPersonalAccountOpenedEvent> newPersonalAccountOpenedEvents, string personalAccountName, int i, LookupItem<long> currencyType)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AssertCharactersNetWorth(IEnumerable<NetWorthIncreased> l, EntityIdentity characterId, int expectedAmount, LookupItem<long> currencyType)
+        {
+            var expectedEbent = l.SingleOrDefault(e => e.CharacterId == characterId);
+            expectedEbent.TotalNetWorth.Should().Be(expectedAmount);
+        }
+
+        private void AssertAssetReceived(IEnumerable<AssetsReceived> events, LookupItem assetType)
         {
         }
 
-        private async Task ICanViewMyCharactersAssets()
+        private async Task JoinGameAsPlayer(IGame game, EntityIdentity characterId)
         {
-            throw new System.NotImplementedException();
+            await game.JoinAsPlayer(characterId);
         }
 
-        private void ICanViewMyAssets()
+        private async Task<ICharacter> ICanViewMyCharacter(EntityIdentity characterId)
         {
-            throw new System.NotImplementedException();
+            var gameCharacter = await this.CharacterReadRepository.Get(characterId);
+            gameCharacter.Should().NotBeNull();
+            return gameCharacter;
         }
 
-        private void ICanViewMyAccount()
+        private async Task ICanViewMyAssets(ICharacter character, GameType gameType)
         {
-            throw new System.NotImplementedException();
+            character.Assets.Any().Should().BeTrue();
+            foreach (var characterAsset in character.Assets)
+            {
+                var asset = await this.assetRepository.Get(characterAsset);
+                asset.Should().NotBeNull();
+            }
         }
 
-        private void IAmNotifiedMyCurrentNetWorthHasIncreasedTo(int i, string s)
+        private async Task ICanViewMyAccount(ICharacter character)
         {
-            throw new System.NotImplementedException();
+            character.Accounts.Any().Should().BeTrue();
+            foreach (var characterAccount in character.Accounts)
+            {
+                var account = await this.accountRepository.Get(characterAccount);
+                account.Should().NotBeNull();
+            }
         }
-
-        private void IAmNotifiedOfAssetsAttained()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void IAmNotifiedOfFundsIntoMyAccount()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void ANewPersonalAccountHasOpened()
-        {
-            throw new System.NotImplementedException();
-        }
-
     }
 }

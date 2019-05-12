@@ -45,13 +45,13 @@
 
         private async Task CreateNewGame(string name)
         {
-            var game = new Game(new Gamifyit.Game.ModelState.Game { Name = name, Type = this.testData.GameTypeLookup.Key});
+            var game = new Game(new Gamifyit.Game.ModelState.Game { Name = name, Type = this.testData.GameType});
             await this.gameRepository.Add(game);
         }
 
         private void IAmNotifiedOfANewGame()
         {
-            this.listEventHandler.Events.OfType<NewGameEvent>().Count().Should().Be(1);
+            this.ListEventHandler.Events.OfType<NewGameEvent>().Count().Should().Be(1);
         }
     }
 }

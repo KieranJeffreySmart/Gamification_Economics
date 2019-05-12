@@ -1,12 +1,15 @@
 ﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests
 {
+    using System.Collections;
     using System.Collections.Generic;
 
+    using Gamifyit.Finance.ModelState;
     using Gamifyit.Framework.DomainObjects;
     using Gamifyit.Game.ModelState;
     using Gamifyit.Geography.ModelState;
 
     using Character = Gamifyit.Game.Model.Character;
+    using Currency = Gamifyit.Finance.ModelState.Currency;
 
     public class GalacticStartupTestData
     {
@@ -28,8 +31,13 @@
                         }
                     };
 
-            this.GameType = new GameType { LookupItem = this.GameTypeLookup, CharacterAttributes = this.CharacterAttributes};
-            this.Game = new Game { Name = gameName, Type = this.GameTypeLookup.Key };
+            this.sterling = new Currency
+                                     {
+                                         Name = "Sterling"
+                                     };
+
+            this.gameType = new GameType { LookupItem = this.GameTypeLookup, CharacterAttributes = this.CharacterAttributes, CurrencyTypes = this.CurrencyTypes };
+            this.game = new Game { Name = gameName, Type = this.gameType };
         }
 
         public Dictionary<LookupItem, List<LookupItem>> CharacterAttributes { get; }
@@ -46,6 +54,13 @@
                 {
                     new LookupItem { Key = 1, Value = "Male" },
                     new LookupItem { Key = 2, Value = "Female" }
+                };
+
+        public List<LookupItem<long>> CurrencyTypes { get; } =
+            new List<LookupItem<long>>
+                {
+                    new LookupItem<long> { Key = 1, Value = "GBP" },
+                    new LookupItem<long> { Key = 2, Value = "USD" }
                 };
 
         public IEnumerable<LookupItem> GameTypes { get; } =
@@ -65,6 +80,12 @@
 
         protected static string gameName = "MyFirstGame";
 
+        private GameType gameType;
+
+        private Game game;
+
+        private Currency sterling;
+
         public string GameTypeName { get; } = gameTypeName;
 
         public LookupItem CharacterTypeAttributeLookup { get; }
@@ -73,9 +94,13 @@
 
         public LookupItem GameTypeLookup { get; }
 
-        public Game Game { get; }
+        public Game Game => this.game.CloneAsSelf();
 
-        public GameType GameType { get; }
+        public GameType GameType => this.gameType.CloneAsSelf();
+
+        public Currency Sterling => this.sterling.CloneAsSelf();
+
+        public Gamifyit.Game.ModelState.Currency InGameBritishPounds { get; }
 
         public Character MyFirstCharacter(string name, int type, int sex) => new Character(
             new Gamifyit.Game.ModelState.Character

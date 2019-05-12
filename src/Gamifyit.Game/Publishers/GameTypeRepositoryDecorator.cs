@@ -21,7 +21,7 @@
         public async Task Add(GameType gameType)
         {
             await this.innerRepository.Add(gameType);
-            await this.eventMediator.Publish(new NewGameTypeEvent(gameType.Identity));
+            await this.eventMediator.Publish(new NewGameTypeEvent(gameType.Identity, gameType.Name));
         }
 
         public async Task<GameType> Get(EntityIdentity identity)

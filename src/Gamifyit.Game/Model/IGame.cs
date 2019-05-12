@@ -8,8 +8,10 @@
     {
         EntityIdentity Identity { get; }
 
+        GameType GameType { get; }
+
         Task StartNewGame();
 
-        Task AddCharacter(EntityIdentity characterIdentity);
+        Task JoinAsPlayer(EntityIdentity characterIdentity);
     }
 }

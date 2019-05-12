@@ -3,12 +3,12 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-
+    
     public class ValueObjectCollectionDictionary<TKey, TValueObject, TState> : IReadOnlyDictionary<TKey, IReadOnlyCollection<TValueObject>>
     {
-        private IDictionary<TKey, IList<TState>> states;
+        private IDictionary<TKey, List<TState>> states;
 
-        private readonly Func<IList<TState>, IReadOnlyCollection<TValueObject>> collectionFactory;
+        private readonly Func<List<TState>, IReadOnlyCollection<TValueObject>> collectionFactory;
 
         private readonly Func<TValueObject, TState> stateFactory;
 
@@ -16,7 +16,7 @@
 
         private Func<TState, TValueObject> valueObjectFactory;
 
-        public ValueObjectCollectionDictionary(IDictionary<TKey, IList<TState>> states, Func<TValueObject, TState> stateFactory, Func<TState, TValueObject> valueObjectFactory)
+        public ValueObjectCollectionDictionary(IDictionary<TKey, List<TState>> states, Func<TValueObject, TState> stateFactory, Func<TState, TValueObject> valueObjectFactory)
         {
             this.stateFactory = stateFactory;
             this.valueObjectFactory = valueObjectFactory;

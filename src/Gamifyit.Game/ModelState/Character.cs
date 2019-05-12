@@ -11,7 +11,11 @@
         public int Type { get; set; }
         public Dictionary<int, int> Attributes { get; set; } = new Dictionary<int, int>();
 
-        public Dictionary<int, StateIdentity> Assets { get; set; } = new Dictionary<int, StateIdentity>();
+        public List<StateIdentity> Assets { get; set; } = new List<StateIdentity>();
+
+        public List<StateIdentity> Accounts { get; set; } = new List<StateIdentity>();
+
+        public decimal NetWorth { get; set; }
 
         public override object Clone()
         {
@@ -24,7 +28,7 @@
             clone.Identity = this.Identity.CloneAsSelf();
 
             clone.Attributes = this.Attributes.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            clone.Assets = this.Assets.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.CloneAsSelf());
+            clone.Assets = this.Assets.Select(id => id.CloneAsSelf()).ToList();
             return clone;
         }
     }

@@ -65,7 +65,7 @@
 
         private async Task SetupNotificationListner()
         {
-            await this.EventMediator.Register(this.listEventHandler);
+            await this.EventMediator.Register(this.ListEventHandler);
         }
 
         private void CanGetMembershipByUsername(string username)
@@ -80,12 +80,12 @@
 
         private void UserHasRegistered()
         {
-            this.listEventHandler.Events.OfType<UserRegisteredEvent>().Should().HaveCount(1);
+            this.ListEventHandler.Events.OfType<UserRegisteredEvent>().Should().HaveCount(1);
         }
 
         private void NewMembershipNotificationReceived()
         {
-            this.listEventHandler.Events.OfType<NewMembershipEvent>().Should().HaveCount(1);
+            this.ListEventHandler.Events.OfType<NewMembershipEvent>().Should().HaveCount(1);
         }
     }
 }

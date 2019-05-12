@@ -1,8 +1,11 @@
 ﻿namespace Gamifyit.Framework.DomainObjects
 {
-    using System;
-    public struct StateIdentity
+    public class StateIdentity
     {
+        public StateIdentity()
+        {
+        }
+
         public StateIdentity(long identityIndex, string identityReference)
         {
             this.Index = identityIndex;

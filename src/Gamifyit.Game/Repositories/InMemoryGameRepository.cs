@@ -4,29 +4,29 @@
     using System.Threading.Tasks;
 
     using Gamifyit.Framework.DomainObjects;
+    using Gamifyit.Framework.Patterns;
     using Gamifyit.Game.Model;
 
-    public class InMemoryGameRepository : GenericInMemoryEntityRepository<Game, ModelState.Game>, IGameRepository
+    public class InMemoryGameRepository : IGameRepository
     {
-        protected override Game EntityFactory(ModelState.Game state)
+        private readonly GenericInMemoryEntityRepository<Game, ModelState.Game> inMemoryEntityRepository;
+
+        public InMemoryGameRepository()
         {
-            return new Game(state);
+            this.inMemoryEntityRepository = new GenericInMemoryEntityRepository<Game, ModelState.Game>(state => new Game(state));
         }
 
         public async Task Add(IGame game)
         {
-            await Task.Run(() =>
-                {
-                    if (game is Game entity)
-                    {
-                        this.Add(entity);
-                    }
-                });
+            if (game is Game entity)
+            {
+                await this.inMemoryEntityRepository.Add(entity);
+            }
         }
 
         public async Task<IGame> Get(EntityIdentity identity)
         {
-            return await Task.Run(() => this.Get(identity));
+            return await this.inMemoryEntityRepository.Get(identity);
         }
     }
 }

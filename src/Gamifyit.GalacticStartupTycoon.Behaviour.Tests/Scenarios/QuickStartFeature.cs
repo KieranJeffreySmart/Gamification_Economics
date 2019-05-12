@@ -155,7 +155,7 @@
         
         private async Task<IGame> StartGame(string membersReference, string gameName)
         {
-            var game = new Game(new GameModelState.Game() { Name = gameName, Type = 1 });
+            var game = new Game(new GameModelState.Game() { Name = gameName, Type = this.testData.GameType });
             await this.gameRepository.Add(game);
             var membership = await this.membershipRepository.GetByEmailAddress(membersReference);
             membership.Member.AddGame(game.Identity);

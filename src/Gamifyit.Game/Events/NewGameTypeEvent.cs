@@ -6,11 +6,14 @@
 
     public class NewGameTypeEvent : Event
     {
-        public NewGameTypeEvent(EntityIdentity gameType)
+        public NewGameTypeEvent(EntityIdentity gameTypeId, string gameTypeName)
         {
-            this.GameType = gameType;
+            this.GameTypeId = gameTypeId;
+            this.GameTypeName = gameTypeName;
         }
 
-        public EntityIdentity GameType { get; }
+        public EntityIdentity GameTypeId { get; }
+
+        public string GameTypeName { get; }
     }
 }

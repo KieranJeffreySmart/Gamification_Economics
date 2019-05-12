@@ -6,14 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.4.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
-    <PackageReference Include="Moq" Version="4.8.3" />
-    <PackageReference Include="Xbehave" Version="2.4.0-rc.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="FluentAssertions" Version="5.6.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0-preview5.19227.9" />
+    <PackageReference Include="Moq" Version="4.11.0-rc1" />
+    <PackageReference Include="Xbehave" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gamifyit.Finance\Gamifyit.Finance.csproj" />
     <ProjectReference Include="..\Gamifyit.Framework\Gamifyit.Framework.csproj" />
     <ProjectReference Include="..\Gamifyit.GalacticStartupTycoon\Gamifyit.GalacticStartupTycoon.csproj" />
     <ProjectReference Include="..\Gamifyit.Game\Gamifyit.Game.csproj" />

@@ -38,7 +38,7 @@
                 .x(async () => await this.CreateCharacter("Margaman", sex, type));
 
             "Then I am notified that my character was created successfully"
-                .x(() => this.IAmNotifiedOfEvent<NewCharacterEvent>());
+                .x(() => this.AmNotifiedOfEvent<NewCharacterEvent>());
         }
 
         private async Task CreateCharacter(string name, int sex, int type)

@@ -9,7 +9,7 @@
 
     public abstract class EntityState : ICloneable
     {
-        public StateIdentity Identity { get; set; }
+        public StateIdentity Identity { get; set; } = new StateIdentity(0, null);
 
         public abstract object Clone();
     }

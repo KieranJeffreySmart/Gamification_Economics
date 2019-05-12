@@ -7,9 +7,13 @@
 
     public class Game : EntityState
     {
-        public int Type { get; set; }
+        public GameType Type { get; set; }
+
         public string Name { get; set; }
-        public IList<StateIdentity> Characters { get; set; } = new List<StateIdentity>();
+
+        public List<StateIdentity> Characters { get; set; } = new List<StateIdentity>();
+
+        public List<StateIdentity> Players { get; set; } = new List<StateIdentity>();
 
         public override object Clone()
         {
@@ -20,7 +24,7 @@
         {
             var clone = (Game)this.MemberwiseClone();
 
-            clone.Characters = this.Characters.Select(o => o.CloneAsSelf()).ToList();
+            clone.Players = this.Players.Select(o => o.CloneAsSelf()).ToList();
             clone.Identity = this.Identity.CloneAsSelf();
             return clone;
         }

@@ -1,5 +1,7 @@
 ﻿namespace Gamifyit.GalacticStartupTycoon.Behaviour.Tests.Scenarios
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -10,7 +12,7 @@
     public class WebsiteTest
     {
         protected readonly IEventMediator EventMediator;
-        protected readonly ListEventHandler listEventHandler = new ListEventHandler();
+        protected readonly ListEventHandler ListEventHandler = new ListEventHandler();
 
         public Dependancy Dependancy { get; }
 
@@ -30,14 +32,17 @@
             await this.SetupNotificationListner();
         }
 
-        protected void IAmNotifiedOfEvent<TEvent>(int count = 1)
+        protected void AmNotifiedOfEvent<TEvent>(Action<IEnumerable<TEvent>> assertList = null)
         {
-            this.listEventHandler.Events.OfType<TEvent>().Count().Should().Be(count);
+            var eventsOfType = this.ListEventHandler.Events.OfType<TEvent>().ToList();
+            eventsOfType.Any().Should().Be(true);
+
+            assertList?.Invoke(eventsOfType);
         }
 
         private async Task SetupNotificationListner()
         {
-            await this.EventMediator.Register(this.listEventHandler);
+            await this.EventMediator.Register(this.ListEventHandler);
         }
     }
 }

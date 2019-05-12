@@ -7,7 +7,7 @@
 
     public interface ICharacterRepository
     {
-        Task Add(Character game);
+        Task Add(Character character);
 
         Task<Character> Get(EntityIdentity identity);
     }

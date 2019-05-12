@@ -26,4 +26,32 @@
 
         public EntityIdentity Identity => this.user.Identity;
     }
+
+    public class GameDecorator : IGame
+    {
+        private readonly IGame innerGame;
+
+        private readonly IEventMediator eventMediator;
+
+        public GameDecorator(IGame innerGame, IEventMediator eventMediator)
+        {
+            this.innerGame = innerGame;
+            this.eventMediator = eventMediator;
+        }
+
+        public EntityIdentity Identity => this.innerGame.Identity;
+
+        public GameType GameType => this.innerGame.GameType;
+
+        public async Task StartNewGame()
+        {
+            await this.innerGame.StartNewGame();
+        }
+
+        public async Task JoinAsPlayer(EntityIdentity characterIdentity)
+        {
+            await this.innerGame.JoinAsPlayer(characterIdentity);
+            await this.eventMediator.Publish(new PlayerHasJoinedGameEvent(characterIdentity, this.Identity));
+        }
+    }
 }

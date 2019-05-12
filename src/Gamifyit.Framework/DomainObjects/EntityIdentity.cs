@@ -27,14 +27,24 @@
                 throw new ArgumentException($"Index is not empty");
             }
 
+            if (index == default(long))
+            {
+                throw new ArgumentException($"Index can not be empty");
+            }
+
             this.state.Index = index;
         }
 
-        public void SstReference(string reference)
+        public void SetReference(string reference)
         {
             if (this.Reference != default(string))
             {
                 throw new ArgumentException($"Reference is not empty");
+            }
+
+            if (string.IsNullOrWhiteSpace(reference))
+            {
+                throw new ArgumentException($"Reference can not be empty");
             }
 
             this.state.Reference = reference;

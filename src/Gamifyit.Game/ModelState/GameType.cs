@@ -10,9 +10,13 @@
     {
         public LookupItem LookupItem { get; set; }
 
-        public Dictionary<LookupItem, List<LookupItem>> CharacterAttributes { get; set; } = new Dictionary<LookupItem, List<LookupItem>>();
+        public Dictionary<LookupItem, List<LookupItem>> CharacterAttributes { get; set; } =
+            new Dictionary<LookupItem, List<LookupItem>>();
 
-        public Dictionary<LookupItem, List<StateIdentity>> CharacterAssets { get; set; } = new Dictionary<LookupItem, List<StateIdentity>>();
+        public Dictionary<LookupItem, List<StateIdentity>> CharacterAssets { get; set; } =
+            new Dictionary<LookupItem, List<StateIdentity>>();
+
+        public List<LookupItem<long>> CurrencyTypes { get; set; } = new List<LookupItem<long>>();
 
         public override object Clone()
         {

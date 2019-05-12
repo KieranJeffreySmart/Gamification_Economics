@@ -2,6 +2,8 @@
 {
     using System;
 
+    using Gamifyit.Finance.Publishers;
+    using Gamifyit.Finance.Repositories;
     using Gamifyit.Framework.DomainObjects;
     using Gamifyit.Framework.Events;
     using Gamifyit.Game.Publishers;
@@ -57,6 +59,18 @@
             serviceCollection.AddSingleton<ICharacterRepository>(
                 x => new CharacterRepositoryDecorator(
                     x.GetService<InMemoryCharacterRepository>(),
+                    x.GetService<IEventMediator>()));
+
+            serviceCollection.AddSingleton<InMemoryAccountRepository>();
+            serviceCollection.AddSingleton<IAccountRepository>(
+                x => new AccountRepositoryDecorator(
+                    x.GetService<InMemoryAccountRepository>(),
+                    x.GetService<IEventMediator>()));
+
+            serviceCollection.AddSingleton<InMemoryCurrencyRepository>();
+            serviceCollection.AddSingleton<ICurrencyRepository>(
+                x => new CurrencyRepositoryDecorator(
+                    x.GetService<InMemoryCurrencyRepository>(),
                     x.GetService<IEventMediator>()));
 
             serviceCollection.AddSingleton<ILookupRepository, InMemoryLookupRepository>();

@@ -4,6 +4,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using FluentAssertions;
+
     using Gamifyit.Framework.DomainObjects;
     using Gamifyit.Game.Events;
     using Gamifyit.Game.Model;
@@ -44,13 +46,14 @@
 
             "When I create a new Game Type".x(async () => await this.CreateNewGameType(name, characterAttributes));
 
-            "Then I am notified of a new game type".x(() => this.IAmNotifiedOfEvent<NewGameTypeEvent>());
+            "Then I am notified of a new game type".x(() => this.AmNotifiedOfEvent<NewGameTypeEvent>());
         }
 
         [Scenario]
         public void CreateManyGameType(string name1, string name2)
         {
             Dictionary<LookupItem, List<LookupItem>> characterAttributes = new Dictionary<LookupItem, List<LookupItem>>();
+            List<LookupItem<long>> currencyTypes;
 
             "Given I have two name {name1} and {name2}"
                 .x(() =>
@@ -62,7 +65,8 @@
                 .x(() => characterAttributes.Add(this.testData.CharacterTypeAttributeLookup, this.testData.CharacterTypes.ToList()));
             "And there are some Character Sexes"
                 .x(() => characterAttributes.Add(this.testData.CharacterSexesAttributeLookup, this.testData.CharacterSexes.ToList()));
-
+            
+            "and there are some Currency Types".x(() => currencyTypes = this.testData.CurrencyTypes);
             "When I create a new Game Type"
                 .x(async () => await this.CreateNewGameTypes(new Gamifyit.Game.ModelState.GameType[]
                                                                  {
@@ -70,7 +74,15 @@
                                                                      this.NewState(characterAttributes, name2)
                                                                  }));
 
-            "Then I am notified of a new game type".x(() => this.IAmNotifiedOfEvent<NewGameTypeEvent>(2));
+            "Then I am notified of a new game type with the name {name1}".x(() => this.AmNotifiedOfEvent<NewGameTypeEvent>((l) => this.AssertGameType(l, name1)));
+
+            "Then I am notified of a new game type with the name {name2}".x(() => this.AmNotifiedOfEvent<NewGameTypeEvent>((l) => this.AssertGameType(l, name2)));
+        }
+
+        private void AssertGameType(IEnumerable<NewGameTypeEvent> newGameTypeEvents, string name)
+        {
+            var newGameTypeEvent = newGameTypeEvents.SingleOrDefault(e => e.GameTypeName == name);
+            newGameTypeEvent.Should().NotBeNull();
         }
 
         private async Task CreateNewGameTypes(Gamifyit.Game.ModelState.GameType[] gameTypeStates)
