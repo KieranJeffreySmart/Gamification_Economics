@@ -31,7 +31,7 @@
             "And I have selected a sex for my character"
                 .x(() => sex = 1);
 
-            "And I have selected a sex for my character"
+            "And I have selected a type for my character"
                 .x(() => type = 1);
 
             "When I submit my new Character Margaman"
